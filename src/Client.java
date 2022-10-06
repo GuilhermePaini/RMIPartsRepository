@@ -29,39 +29,27 @@ public class Client {
 				System.out.println("9 - Say goodbye!");
 
 				menuOption = scan.nextInt();
-				int guess = 0;
-				int min = 0;
-				int max = 0;
 
 				switch (menuOption) {
 					case 1:
 						System.out.println(server.helloUwU());
 						break;
 					case 2:
-						System.out.println(server.getSO());
 						break;
 					case 3:
 						System.out.println("Type a number:");
-						guess = scan.nextInt();
-						System.out.println(server.guessTheNumber(guess));
 						break;
 					case 4:
 						System.out.println("Enter a minimum number and a maximum number:");
-						min = scan.nextInt();
-						max = scan.nextInt();
-						System.out.println(server.randomNumberBetween(min, max));
 						break;
 
 					case 9:
-						System.out.println(server.goodbyeUwU());
 						break;
 
 					default:
 						System.out.println("Aeiou");
 				}
 			}
-			//myServerObject.adiciona("XPTO");
-			//System.out.println("No servidor tem agora estes elementos" + myServerObject.consulta() );
 		}
 		catch(Exception e) {
 			System.out.println("Exception occured: " + e);
