@@ -1,14 +1,15 @@
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 public class Part implements IPart {
     private UUID id;
     private String name;
-    private String description;
-    private Map<IPart, Integer> subParts;
+    private final String description;
+    private HashMap<IPart, Integer> subParts;
 
-    public Part(UUID id, String name, String description, Map<IPart, Integer> subParts) {
-        this.id = id;
+    public Part(String name, String description, HashMap<IPart, Integer> subParts) {
+        this.id = UUID.randomUUID();
         this.name = name;
         this.description = description;
         this.subParts = subParts;
@@ -22,9 +23,10 @@ public class Part implements IPart {
     public String getDescription() { return this.description; }
     @Override
     public Map<IPart, Integer> getSubParts() { return this.subParts; }
-
     @Override
     public boolean addSubPart(IPart part, Integer quantity) {
         return false;
     }
+    @Override
+    public void clearSubParts() { this.subParts = new HashMap<>(); }
 }

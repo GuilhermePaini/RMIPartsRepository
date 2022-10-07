@@ -2,9 +2,10 @@ import java.util.Map;
 import java.util.UUID;
 
 public interface IPart {
-    public UUID getId();
-    public String getName();
-    public String getDescription();
-    public Map<IPart, Integer> getSubParts();
-    public boolean addSubPart(IPart part, Integer quantity);
+    UUID getId();
+    String getName();
+    String getDescription();
+    Map<IPart, Integer> getSubParts();
+    boolean addSubPart(IPart part, Integer quantity);
+    void clearSubParts();
 }

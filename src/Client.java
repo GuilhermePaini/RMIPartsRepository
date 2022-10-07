@@ -38,7 +38,7 @@ public class Client {
 
 				switch (menuOption) {
 					case "listp":
-						System.out.println(server.helloUwU());
+						//System.out.println(server.helloUwU());
 						break;
 					case "getp":
 						break;

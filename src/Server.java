@@ -9,9 +9,9 @@ public class Server {
 		try {
 			java.rmi.registry.LocateRegistry.createRegistry(1099);
 			System.out.println("RMI registry está pronto.");
-			Repository objRemoto = new Repository();
+			Repository remote = new Repository();
 
-			Naming.rebind("RMIImpl", objRemoto);
+			Naming.rebind("Server", remote);
 			System.out.println("servidor está pronto");
 
 		} catch (MalformedURLException | RemoteException e) {
