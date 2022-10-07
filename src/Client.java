@@ -23,15 +23,15 @@ public class Client {
 				if(menuOption.equals("/help")){
 					System.out.println("List of available commands:");
 					System.out.println("---------------------------");
-					System.out.println("""
-							listp - List of parts available.
-							getp - Get a part using it's id.
-							showp - Shows the current part's attributes.
-							clearlist - Clear the part's list.
-							addsubpart - Add a subpart to the subpart's list of the current part.
-							addp - Add a part to the current repository.
-							quit - Ends the client execution.
-							""");
+					System.out.println(
+							"listp - List of parts available.\n" +
+							"getp - Get a part using it's id.\n" +
+							"showp - Shows the current part's attributes.\n" +
+							"clearlist - Clear the part's list.\n" +
+							"addsubpart - Add a subpart to the subpart's list of the current part.\n" +
+							"addp - Add a part to the current repository.\n" +
+							"quit - Ends the client execution."
+							);
 				}
 
 				menuOption = scan.nextLine();
