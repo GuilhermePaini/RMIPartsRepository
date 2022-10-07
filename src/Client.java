@@ -7,47 +7,58 @@ public class Client {
 
 		//ip server = 10.202.5.44
 		String host = "10.202.5.44";
-// para executar de uma forma segura, pode-se utilizar um arquivo de configuração com polices ...(premissao.policy) 
-// e para executar tem que colocar: java -Djava.security.policy=permissao.policy RMIClient 
-		
-		//System.setSecurityManager(new SecurityManager());
+
 		try {
 			Registry registry = LocateRegistry.getRegistry(host);
 			IRepository server = (IRepository) registry.lookup("RMIImpl");
 
-			int menuOption = 0;
+			String menuOption = "";
 			Scanner scan = new Scanner(System.in);
 
-			while(menuOption != 9){
+			while(!menuOption.equals("quit")){
 
-				System.out.println("Client menu - Choose an option:");
-				System.out.println("------------------");
-				System.out.println("1 - Say hello!");
-				System.out.println("2 - Which SO is the server using?");
-				System.out.println("3 - Guess the number?");
-				System.out.println("4 - Give me a random number between other numbers!");
-				System.out.println("9 - Say goodbye!");
+				System.out.println("Welcome to the Part System. \n Type /help for the command list.");
 
-				menuOption = scan.nextInt();
+				menuOption = scan.nextLine();
+				if(menuOption.equals("/help")){
+					System.out.println("List of available commands:");
+					System.out.println("---------------------------");
+					System.out.println("""
+							listp - List of parts available.
+							getp - Get a part using it's id.
+							showp - Shows the current part's attributes.
+							clearlist - Clear the part's list.
+							addsubpart - Add a subpart to the subpart's list of the current part.
+							addp - Add a part to the current repository.
+							quit - Ends the client execution.
+							""");
+				}
+
+				menuOption = scan.nextLine();
 
 				switch (menuOption) {
-					case 1:
+					case "listp":
 						System.out.println(server.helloUwU());
 						break;
-					case 2:
+					case "getp":
 						break;
-					case 3:
-						System.out.println("Type a number:");
+					case "showp":
 						break;
-					case 4:
-						System.out.println("Enter a minimum number and a maximum number:");
+					case "clearlist":
 						break;
 
-					case 9:
+					case "addsubpart":
+						break;
+
+					case "addp":
+						break;
+
+					case "quit":
+						//System.out.println(server.quit());
 						break;
 
 					default:
-						System.out.println("Aeiou");
+						System.out.println("This option is not available at the moment, contact the system administrators.");
 				}
 			}
 		}
