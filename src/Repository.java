@@ -29,8 +29,11 @@ public class Repository extends UnicastRemoteObject implements IRepository
 	}
 
 	@Override
-	public IPart getCurrentPart() throws RemoteException {
-		return this.currentPart;
+	public String getCurrentPart() throws RemoteException {
+		// TODO: add subparts name, description and quantity to this toString
+		return "id: " + this.currentPart.getId()
+				+ "\n name: " + this.currentPart.getName()
+				+ "\n description: " + this.currentPart.getDescription();
 	}
 
 	@Override
@@ -48,7 +51,7 @@ public class Repository extends UnicastRemoteObject implements IRepository
 	public String addPart(String name, String description) throws RemoteException {
 		this.currentPart = new Part(name, description, new HashMap<>());
 		this.parts.add(this.currentPart);
-		return "Caralho!!";
+		return this.getCurrentPart();
 	}
 
 	@Override
