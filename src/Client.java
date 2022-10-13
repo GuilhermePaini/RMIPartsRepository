@@ -1,6 +1,9 @@
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.HashMap;
+import java.util.Objects;
 import java.util.Scanner;
+import java.util.UUID;
 
 public class Client {
 	public static void main(String[] args) {
@@ -15,27 +18,48 @@ public class Client {
 			String menuOption = "";
 			Scanner scan = new Scanner(System.in);
 
-			System.out.println("Welcome to the Part System. \n Type 'help' for the command list.");
+			System.out.println("Welcome to the Part System. Type 'help' for the command list.");
 
 			while(!menuOption.equals("quit")){
+
+				System.out.println("########################################");
+				System.out.println(server.getCurrentPart());
+				System.out.println("########################################");
+
 				System.out.print(">");
-				menuOption = scan.nextLine();
+
+				String[] arguments = scan.nextLine().split(" ");
+				menuOption = arguments[0];
 
 				switch (menuOption) {
 					case "listp":
-						//System.out.println(server.helloUwU());
+						var listParts = server.listParts();
+
+						for (IPart a: listParts) {
+							System.out.println(a.getId());
+						}
+
 						break;
 					case "getp":
+						if(arguments.length == 1 || Objects.equals(arguments[1], "")) {
+							System.out.println("Missing argument 'id'. ");
+							break;
+						}
+						server.getPartById(UUID.fromString(arguments[1]));
 						break;
 
 					case "showp":
-						System.out.println(server.getCurrentPart());
+						System.out.println(server.getCurrentPart() + "\n");
 						break;
 
 					case "clearlist":
+						// TODO: implement
 						break;
 
 					case "addsubpart":
+						// TODO: add user input to define name, description and quantity
+						var a = new Part("bom dia", "turma", new HashMap<>());
+						System.out.println(server.addSubPart(a, 1));
 						break;
 
 					case "addp":

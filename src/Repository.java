@@ -13,27 +13,25 @@ public class Repository extends UnicastRemoteObject implements IRepository
 
 	@Override
 	public List<IPart> listParts() throws RemoteException {
-		return null;
+		return this.parts;
 	}
 
 	@Override
-	public IPart getPartById(UUID partId) throws RemoteException {
-		var part = this.parts.stream().filter(p -> p.getId().equals(partId)).findFirst().orElse(null);
-
-		if(part != null) {
-			this.currentPart = part;
-			return this.currentPart;
-		}
-
-		return part;
+	public void getPartById(UUID partId) throws RemoteException {
+		this.parts.stream().filter(p -> p.getId().equals(partId)).findFirst().ifPresent(
+				part -> this.currentPart = part
+		);
 	}
 
 	@Override
 	public String getCurrentPart() throws RemoteException {
-		// TODO: add subparts name, description and quantity to this toString
-		return "id: " + this.currentPart.getId()
-				+ "\n name: " + this.currentPart.getName()
-				+ "\n description: " + this.currentPart.getDescription();
+		if(this.currentPart != null) {
+			return "id: " + this.currentPart.getId()
+					+ "\nname: " + this.currentPart.getName()
+					+ "\ndescription: " + this.currentPart.getDescription();
+		}
+
+		return "No current part.";
 	}
 
 	@Override
@@ -44,7 +42,12 @@ public class Repository extends UnicastRemoteObject implements IRepository
 
 	@Override
 	public String addSubPart(IPart subpart, Integer quantity) throws RemoteException {
-		return "";
+
+		if (this.currentPart != null && this.currentPart.addSubPart(subpart, quantity)) {
+			return "Success";
+		}
+
+		return "No current part selected, use 'addp' or 'getp' to select a part.";
 	}
 
 	@Override

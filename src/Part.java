@@ -1,8 +1,11 @@
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class Part implements IPart {
+public class Part implements IPart, Serializable {
+
+    private static final long serialVersionUID = -6952866792930229021L;
     private UUID id;
     private String name;
     private final String description;
@@ -25,7 +28,12 @@ public class Part implements IPart {
     public Map<IPart, Integer> getSubParts() { return this.subParts; }
     @Override
     public boolean addSubPart(IPart part, Integer quantity) {
-        return false;
+        try {
+            this.subParts.put(part, quantity);
+        } catch (Exception ex) {
+            return false;
+        }
+        return true;
     }
     @Override
     public void clearSubParts() { this.subParts = new HashMap<>(); }
