@@ -17,6 +17,14 @@ public class Repository extends UnicastRemoteObject implements IRepository
 	}
 
 	@Override
+	public Map<IPart, Integer> listSubParts() throws RemoteException {
+		if(this.currentPart != null)
+			return this.currentPart.getSubParts();
+
+		return new HashMap<>();
+	}
+
+	@Override
 	public void getPartById(UUID partId) throws RemoteException {
 		this.parts.stream().filter(p -> p.getId().equals(partId)).findFirst().ifPresent(
 				part -> this.currentPart = part
