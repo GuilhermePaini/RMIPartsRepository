@@ -5,7 +5,6 @@ import java.util.*;
 public class Client {
 	public static void main(String[] args) {
 
-		//ip server = 10.202.5.44
 		String host = "localhost";
 
 		try {
@@ -20,34 +19,43 @@ public class Client {
 			while(!menuOption.equals("quit")){
 
 				System.out.println("########################################");
+				System.out.println("Current part selected:");
 				System.out.println(server.getCurrentPart());
 				System.out.println("########################################");
 
 				System.out.print(">");
 
-				String[] arguments = scan.nextLine().split(" ");
-				menuOption = arguments[0];
+				String[] params = scan.nextLine().split(" ");
+				menuOption = params[0];
 
 				switch (menuOption) {
 					case "listp":
-						// TODO: make it look beautiful
 						var listParts = server.listParts();
 
-						for (IPart a: listParts) {
-							System.out.println(a.getId());
+						System.out.println("List of available parts:");
+
+						for (IPart part: listParts) {
+							System.out.println("----------------------------------------");
+							System.out.println("id: " + part.getId());
+							System.out.println("name: " + part.getName());
+							System.out.println("description: " + part.getDescription());
 						}
 
+						System.out.println("----------------------------------------");
+
 						break;
+
 					case "getp":
-						if(arguments.length == 1 || Objects.equals(arguments[1], "")) {
-							System.out.println("Missing argument 'id'. ");
+						if(params.length == 1 || Objects.equals(params[1], "")) {
+							System.out.println("Missing argument 'id'.");
 							break;
 						}
-						server.getPartById(UUID.fromString(arguments[1]));
+						server.getPartById(UUID.fromString(params[1]));
 						break;
 
 					case "showp":
 
+						System.out.println("Current part selected:");
 						System.out.println(server.getCurrentPart() + "\n");
 
 						if(server.listSubParts().isEmpty()) {
@@ -55,14 +63,14 @@ public class Client {
 							break;
 						}
 
-						// TODO: make it look beautiful
-						System.out.println("List of subparts: ###################");
+						System.out.println("List of subparts:");
 
 						for (var entry : server.listSubParts().entrySet()) {
 							var part = entry.getKey();
+							System.out.println("----------------------------------------");
 							System.out.println("Name: " + part.getName());
 							System.out.println("Description: " + part.getDescription());
-							System.out.println("Quantity: " + entry.getValue() + "\n");
+							System.out.println("Quantity: " + entry.getValue());
 						}
 
 						break;
@@ -73,18 +81,18 @@ public class Client {
 
 					case "addsubpart":
 
-						if(arguments.length < 4
-							|| Objects.equals(arguments[1], "")
-							|| Objects.equals(arguments[2], "")
-							|| Objects.equals(arguments[3], "")
+						if(params.length < 4
+							|| Objects.equals(params[1], "")
+							|| Objects.equals(params[2], "")
+							|| Objects.equals(params[3], "")
 						) {
 							System.out.println("Missing arguments. ");
 							break;
 						}
 
 						try {
-							var quantity = Integer.parseInt(arguments[3]);
-							var a = new Part(arguments[1], arguments[2], new HashMap<>());
+							var quantity = Integer.parseInt(params[3]);
+							var a = new Part(params[1], params[2], new HashMap<>());
 							System.out.println(server.addSubPart(a, quantity));
 						}catch (Exception ex) {
 							System.out.println("Something went wrong!!");
@@ -93,15 +101,15 @@ public class Client {
 						break;
 
 					case "addp":
-						if(arguments.length < 3
-								|| Objects.equals(arguments[1], "")
-								|| Objects.equals(arguments[2], "")
+						if(params.length < 3
+								|| Objects.equals(params[1], "")
+								|| Objects.equals(params[2], "")
 						) {
 							System.out.println("Missing arguments. ");
 							break;
 						}
 
-						System.out.println(server.addPart(arguments[1], arguments[2]));
+						System.out.println(server.addPart(params[1], params[2]));
 						break;
 
 					case "help":

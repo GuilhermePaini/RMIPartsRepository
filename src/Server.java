@@ -8,11 +8,11 @@ public class Server {
 
 		try {
 			java.rmi.registry.LocateRegistry.createRegistry(1099);
-			System.out.println("RMI registry está pronto.");
+			System.out.println("RMI registry is ready!");
 			Repository remote = new Repository();
 
 			Naming.rebind("Server", remote);
-			System.out.println("servidor está pronto");
+			System.out.println("Server is ready!");
 
 		} catch (MalformedURLException | RemoteException e) {
 			System.out.println(e.getMessage());

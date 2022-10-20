@@ -39,7 +39,7 @@ public class Repository extends UnicastRemoteObject implements IRepository
 					+ "\ndescription: " + this.currentPart.getDescription();
 		}
 
-		return "No current part.";
+		return "No current part selected.";
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class Repository extends UnicastRemoteObject implements IRepository
 	public String addSubPart(IPart subpart, Integer quantity) throws RemoteException {
 
 		if (this.currentPart != null && this.currentPart.addSubPart(subpart, quantity)) {
-			return "Success";
+			return "The subpart was succesfully added! Use showp to see the list of subparts.";
 		}
 
 		return "No current part selected, use 'addp' or 'getp' to select a part.";
@@ -67,6 +67,6 @@ public class Repository extends UnicastRemoteObject implements IRepository
 
 	@Override
 	public String quit() throws RemoteException {
-		return "bye!";
+		return "Thanks for using our system, bye!";
 	}
 }
